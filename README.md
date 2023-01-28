@@ -2,10 +2,10 @@
 This is sample project of api testing. its done a book store application. 
 Requirements: Knowledge in API Testing.
 
-POST Method: Create Access Token\n
-POST Method: Create new Booking
-GET Method: Get Booking Data
-PUT Method: Update Booking Data
-PATCH Method: Partial Booking Data Update
-Delete Method: Delete Booking
-GET Method: Get all Booking IDs
+1.POST Method: Create Access Token
+2.POST Method: Create new Booking
+3.GET Method: Get Booking Data
+4.PUT Method: Update Booking Data
+5.PATCH Method: Partial Booking Data Update
+6.Delete Method: Delete Booking
+7.GET Method: Get all Booking IDs
