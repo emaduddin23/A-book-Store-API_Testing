@@ -1,0 +1,448 @@
+{
+	"info": {
+		"_postman_id": "8fe53d00-f8b6-4ca1-a7d1-c7d9f44929bd",
+		"name": "Book Store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23141320"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"userID\", jsonData.userID);\r",
+							"\r",
+							"pm.test(\"Test username\", function () {\r",
+							"    pm.expect(jsonData.username).to.eql(pm.environment.get(\"username\"));\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userName\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "https://bookstore.toolsqa.com/Account/v1/User",
+					"protocol": "https",
+					"host": [
+						"bookstore",
+						"toolsqa",
+						"com"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"token\", jsonData.token);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userName\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "https://bookstore.toolsqa.com/Account/v1/GenerateToken",
+					"protocol": "https",
+					"host": [
+						"bookstore",
+						"toolsqa",
+						"com"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"GenerateToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userName\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "https://bookstore.toolsqa.com/Account/v1/Authorized",
+					"protocol": "https",
+					"host": [
+						"bookstore",
+						"toolsqa",
+						"com"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"Authorized"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://bookstore.toolsqa.com/Account/v1/User/{{userID}}",
+					"protocol": "https",
+					"host": [
+						"bookstore",
+						"toolsqa",
+						"com"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"User",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains 'books' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"books\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'isbn' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"isbn\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'title' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"title\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'subTitle' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"subTitle\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'author' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"author\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'publish_date' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"publish_date\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'publisher' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"publisher\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'pages' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"pages\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'description' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"description\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has 'website' property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.books.forEach(function (book) {\r",
+							"        pm.expect(book).to.have.property(\"website\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://bookstore.toolsqa.com/BookStore/v1/Books",
+					"protocol": "https",
+					"host": [
+						"bookstore",
+						"toolsqa",
+						"com"
+					],
+					"path": [
+						"BookStore",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Books to user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": \"{{userID}}\",\n  \"collectionOfIsbns\": [\n    {\n      \"isbn\": \"9781449325862\"\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "https://bookstore.toolsqa.com/BookStore/v1/Books",
+					"protocol": "https",
+					"host": [
+						"bookstore",
+						"toolsqa",
+						"com"
+					],
+					"path": [
+						"BookStore",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://bookstore.toolsqa.com/Account/v1/User/{{userID}}",
+					"protocol": "https",
+					"host": [
+						"bookstore",
+						"toolsqa",
+						"com"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"User",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
